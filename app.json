@@ -1,0 +1,11 @@
+{
+    "name": "iqbalcakep.com",
+    "description": "personal site miqbalrr",
+    "repository": "https://github.com/miqbalrr/iqbalcakep.com",
+    "success_url": "/",
+    "keywords": ["rust", "iqbalcakep"],
+    "website": "https://github.com/miqbalrr/iqbalcakep.com",
+    "env": {
+      "BUILDPACK_URL": "https://github.com/miqbalrr/iqbalcakep.com.git"
+    }
+  }

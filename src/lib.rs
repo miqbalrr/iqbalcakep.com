@@ -17,7 +17,7 @@ pub async fn start() -> std::io::Result<()> {
 
     server = match listenfd.take_tcp_listener(0).unwrap() {
         Some(val) => server.listen(val)?,
-        None => server.bind("127.0.0.1:2828")?,
+        None => server.bind("0.0.0.0:8080")?,
     };
 
     server.run().await
