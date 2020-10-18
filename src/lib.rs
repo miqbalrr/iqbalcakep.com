@@ -22,10 +22,14 @@ pub async fn start() -> std::io::Result<()> {
 
     server = match listenfd.take_tcp_listener(0).unwrap() {
         Some(val) => server.listen(val)?,
-        None => server.bind(format!("{}:{}", config.server.host, config.server.port))?,
+        None => server.bind(format!("{}:{}", config.server.host, get_server_port()))?,
     };
 
     server.run().await
+}
+
+fn get_server_port() -> u16 {
+    std::env::var("PORT").unwrap_or("6767".to_string()).parse().unwrap()
 }
 
 async fn index(
