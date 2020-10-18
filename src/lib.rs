@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate dotenv_codegen;
+mod config;
 use actix_web::{error, web, Error, App, HttpResponse, HttpServer};
 use listenfd::ListenFd;
 use dotenv::dotenv;
@@ -8,8 +7,8 @@ use tera::Tera;
 #[actix_web::main]
 pub async fn start() -> std::io::Result<()> {
     dotenv().ok();
-    let base_url = dotenv!("BASE_URL").to_string();
-    let port = dotenv!("PORT").to_string();
+    let config = crate::config::Config::from_env().unwrap();
+
     env_logger::init();
 
     let mut listenfd = ListenFd::from_env();
@@ -23,7 +22,7 @@ pub async fn start() -> std::io::Result<()> {
 
     server = match listenfd.take_tcp_listener(0).unwrap() {
         Some(val) => server.listen(val)?,
-        None => server.bind(format!("{}:{}", base_url.as_str(),port.as_str()))?,
+        None => server.bind(format!("{}:{}", config.server.host, config.server.port))?,
     };
 
     server.run().await
