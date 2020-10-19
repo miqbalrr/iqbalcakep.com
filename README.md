@@ -1,5 +1,5 @@
 # iqbalcakep.com
-repository for my own personal site
+My personal site repository
 
 ## pertanyaan
 apakah portofolio itu penting? 
