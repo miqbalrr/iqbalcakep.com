@@ -13,7 +13,13 @@ pub async fn start() -> std::io::Result<()> {
 
     let mut listenfd = ListenFd::from_env();
     let mut server =  HttpServer::new(|| {
-        let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/**/*")).unwrap();
+        let tera = match Tera::new("views/**/*") {
+            Ok(t) => t,
+            Err(e) => {
+                println!("Parsing error(s): {}", e);
+                ::std::process::exit(1);
+            }
+        };
 
         App::new()
         .data(tera)
