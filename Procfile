@@ -1,1 +1,1 @@
-web: ./target/release/iqbalcakep
+web: target/release/iqbalcakep
