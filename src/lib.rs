@@ -4,7 +4,8 @@ mod handlers;
 use actix_web::{web, App, HttpServer};
 use listenfd::ListenFd;
 use dotenv::dotenv;
-use handlers::index::*;
+use handlers::index::index;
+use handlers::grabmeta::grab_meta_handler;
 
 
 #[actix_web::main]
@@ -19,6 +20,7 @@ pub async fn start() -> std::io::Result<()> {
 
         App::new()
         .service(web::resource("/").route(web::get().to(index)))
+        .service(web::resource("/grab-meta").route(web::get().to(grab_meta_handler)))
     });
 
     server = match listenfd.take_tcp_listener(0).unwrap() {
