@@ -1,6 +1,8 @@
 mod config;
 mod handlers;
+mod error;
 
+use actix_files::Files;
 use actix_web::{web, App, HttpServer};
 use listenfd::ListenFd;
 use dotenv::dotenv;
@@ -19,6 +21,8 @@ pub async fn start() -> std::io::Result<()> {
     let mut server =  HttpServer::new(|| {
 
         App::new()
+        .wrap(error::error_handlers())
+        .service(Files::new("/images", "static/images/").show_files_listing())
         .service(web::resource("/").route(web::get().to(index)))
         .service(web::resource("/grab-meta").route(web::get().to(grab_meta_handler)))
     });
