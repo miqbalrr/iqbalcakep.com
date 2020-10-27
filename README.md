@@ -2,5 +2,6 @@
 My personal site repository
 
 # Routes
-/
-/grab-meta?url=https://github.com/miqbalrr/grab-meta
+https://iqbalcakep.com/
+
+https://iqbalcakep.com/grab-meta?url=url
